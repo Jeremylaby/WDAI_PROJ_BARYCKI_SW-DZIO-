@@ -20,12 +20,12 @@ function ProductsCollection({role}) {
         })
             .then((response) => {
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    throw new Error('fetching products failed');
                 }
-                return response.json(); // Dodaj return, aby zwrócić wynik do następnego .then
+                return response.json();
             })
             .then((data) => {
-                setData(data.products); // Zakładając, że serwer zwraca obiekt z kluczem 'products'
+                setData(data.products);
                 setProductsData(data.products);
                 console.log(data.products);
             })
@@ -65,7 +65,7 @@ function ProductsCollection({role}) {
     const searchItems = (e) => {
         setSearcePhrase(e.target.value.toLowerCase())
         console.log(e.target.value)
-        if (category == "default") {
+        if (category === "default") {
             setProductsData(data.filter((product) => product.title.toLowerCase().includes(e.target.value.toLowerCase())))
         } else {
             setProductsData(data.filter((product) => product.title.toLowerCase().includes(e.target.value.toLowerCase()) && product.category == category))
@@ -73,7 +73,7 @@ function ProductsCollection({role}) {
 
     }
     const categoryItems = (e) => {
-        if (e.target.value != "default") {
+        if (e.target.value !== "default") {
             setProductsData(data.filter((product) => product.title.toLowerCase().includes(searchePhrase) && product.category == e.target.value))
         } else {
             setProductsData(data.filter((product) => product.title.toLowerCase().includes(searchePhrase)))
@@ -82,28 +82,28 @@ function ProductsCollection({role}) {
 
     }
     const handleEdit = async (product, id) => {
-        let newData = [...data]
-        newData[id - 1] = product
-        setData(newData)
-        newData = [...productsdata]
-        newData[id - 1] = product
-        setProductsData(newData)
-        try {
-            const response = await fetch(`http://localhost:8080/products/${id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(product),
-            });
+        let newData = [...data];
+        newData[id - 1] = product;
+        newData = [...productsdata];
+        newData[id - 1] = product;
+        setProductsData(newData);
+        setData(newData);
+        fetch(`http://localhost:8080/products/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(product),
+        }).then((response) => {
             if (!response.ok) {
                 throw new Error('Nie udało się zaktualizować produktu.');
             }
-        } catch (error) {
-            console.error('Wystąpił błąd podczas aktualizacji produktu:', error);
-        }
-
-
+            return response.json();
+        }).then((data)=>{
+            console.log(data.message)
+        }).catch((error) => {
+            console.error('Błąd podczas w czasie przesyłania danych: ', error);
+        });
     }
     return (<>
         <div className="button-conteiner">
@@ -135,7 +135,7 @@ function ProductsCollection({role}) {
                 </select></div>
                 <input type="text" placeholder={"search"} onChange={(e) => searchItems(e)}/></div>
         </div>
-        <ProductsList products={productsdata}  onEdit={handleEdit} role={role}/></>)
+        <ProductsList products={productsdata} onEdit={handleEdit} role={role}/></>)
 }
 
 export default ProductsCollection

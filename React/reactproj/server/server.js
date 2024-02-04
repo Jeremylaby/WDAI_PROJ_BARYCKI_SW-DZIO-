@@ -54,12 +54,14 @@ app.get('/', (req, res) => {
     res.send('Hello from our server!')
 })
 
-
+async function loadProducts() {
+    const data = await fs.promises.readFile(productsPath, 'utf8');
+    products = JSON.parse(data);
+}
 
 app.get('/getproducts', async (req,res) => {
         try {
-            const data = await fs.promises.readFile(productsPath, 'utf8');
-            const products = JSON.parse(data);
+            await loadProducts();
             res.json(products); // Przekazuj dane w obiekcie
         } catch (error) {
             console.error('Błąd odczytu pliku lub parsowania JSON:', error);
@@ -71,15 +73,16 @@ app.post('/register', async (req, res) => {
         const {username, scryptedPassword} = req.body;
         const bytes = CryptoJS.AES.decrypt(scryptedPassword, key);
         const password = bytes.toString(CryptoJS.enc.Utf8);
+        //Sprawdzanie czy username albo password są z białych znaków
         if (!username.trim()) {
             return res.status(401).json({error: 'Username is Blank!!!'});
         }
         if (!password.trim()) {
             return res.status(401).json({error: 'Password is Blank!!!'});
         }
+        //SPrawdzanie czy nie ma danego użytkownika w bazie
         const existingUser = users.find((u) => u.username === username)
             || admins.find((u) => u.username === username);
-
         if (existingUser) {
             return res.status(400).json({error: 'User with that username already exist!!!.'});
         }
@@ -100,9 +103,9 @@ app.post('/register', async (req, res) => {
         // Dodanie użytkownika do listy
         users.push(newUser);
         const token = jwt.sign({userId: newUser.id, role: "user"}, secretKey, {expiresIn: '1h'});
-
-        res.status(201).json({message: 'Super', token});
-        fs.writeFileSync('users.json', JSON.stringify(users, null, 2));
+        //komunikacja z fortnem
+        res.status(201).json({message: 'Zalogowano', token});
+        fs.writeFileSync(usersPath, JSON.stringify(users, null, 2));
         console.log("New has been added : ", newUser.id, newUser.username)
     } catch (error) {
         console.error('Register Error:', error);
@@ -111,22 +114,21 @@ app.post('/register', async (req, res) => {
 });
 
 app.post('/login', async (req, res) => {
+    //funkcja pomocnicza do sprawdzenia poprawności wprowadzonego hasła
     async function passworValidation(user, password) {
         const salt = user.salt;
         const hashedPassword = await bcrypt.hash(password, salt);
-        const isPasswordValid = hashedPassword === user.hashedPassword;
-        return isPasswordValid;
+        return hashedPassword === user.hashedPassword;
     }
 
     try {
         const {username, scryptedPassword} = req.body;
-
-        // Znajdź użytkownika w bazie danych
         const user = users.find((u) => u.username === username);
         const admin = admins.find((a) => a.username === username);
         const bytes = CryptoJS.AES.decrypt(scryptedPassword, key);
         const password = bytes.toString(CryptoJS.enc.Utf8);
         let token;
+        //Sprawdzanie czy użytkownik jest userem adminem czy ani tym ani tym
         if (user) {
             const isPasswordValid = await passworValidation(user, password);
             if (!isPasswordValid) {
@@ -143,30 +145,25 @@ app.post('/login', async (req, res) => {
         } else {
             return res.status(401).json({error: 'Invalid username'});
         }
-
-
-        // W
-        res.status(201).json({message: "git", token});
+        //wysyłanie tokenu do frontu
+        res.status(201).json({message: "git token", token});
     } catch (error) {
         console.error('Login error:', error);
         res.status(500).json({error: 'An error occurred while logging in.'});
     }
 });
+//endpoint wprowadzający zmiany w bazie produktów
 app.put('/products/:id', async (req, res) => {
     const productId = parseInt(req.params.id);
     const updatedProduct = req.body;
 
     try {
-        // Załaduj obecną listę produktów z pliku
-        const data = await fs.promises.readFile(productsPath, 'utf8');
-        products = JSON.parse(data);
-
-        // Zaktualizuj produkt w tablicy
+        //odczytywanie danych z pliku
+        await loadProducts();
         products.products[productId-1] = updatedProduct;
-
         await fs.promises.writeFile(productsPath, JSON.stringify(products, null, 2), 'utf8');
 
-        res.json(products.products[productId -1]);
+        res.json({message: "Produkt o id: "+productId+" dodany pomyślnie"});
     } catch (error) {
         console.error('Błąd podczas aktualizacji produktu:', error);
         res.status(500).json({ message: 'Wystąpił błąd podczas aktualizacji produktu' });

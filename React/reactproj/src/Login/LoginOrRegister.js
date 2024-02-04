@@ -8,58 +8,61 @@ const LoginOrRegister = ({onLogin}) => {
     const key = "SuperSecretKeyKrzysztof";
 
     const handleRegister = async () => {
-        const scryptedPassword=CryptoJS.AES.encrypt(password,key).toString();
-        try {
-            const response = await fetch('http://localhost:8080/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({username,scryptedPassword}),
+        const scryptedPassword = CryptoJS.AES.encrypt(password, key).toString();
+        fetch('http://localhost:8080/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({username, scryptedPassword}),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(data => {
+                        throw new Error(data.error || 'Błąd rejestracji');
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Rejestracja zakończona pomyślnie: ', data.message);
+                alert('Rejestracja zakończona pomyślnie: ' + data.message);
+                console.log('Wygenerowano token: ', data.token);
+                onLogin(data.token);
+            })
+            .catch(error => {
+                console.error('Wystąpił błąd: ', error.message);
+                alert('Wystąpił błąd: ' + error.message);
             });
-            const data = await response.json();
-            if (!response.ok) {
-                console.error('Błąd rejestracji :'+ data.error);
-                alert('Błąd rejestracji: '+ data.error)
-                return;
-            }
-            console.log('Rejestracja zakończona pomyślnie:', data.message);
-            alert('Rejestracja zakończona pomyślnie:', data.message)
-            console.log('Wygenerowano token: ', data.token)
-            onLogin(data.token);
-        } catch (error) {
-            console.error('Wystąpił błąd:', error);
-            alert('Wystąpił błąd:', error)
-        }
-
     };
     const handleLogin = async () => {
-        const scryptedPassword=CryptoJS.AES.encrypt(password,key).toString();
-        try {
-            const response = await fetch('http://localhost:8080/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({username, scryptedPassword}),
+        const scryptedPassword = CryptoJS.AES.encrypt(password, key).toString();
+        fetch('http://localhost:8080/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({username, scryptedPassword}),
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    return response.json().then(data => {
+                        throw new Error(data.error || 'Błąd logowania');
+                    });
+                }
+                return response.json();
+            })
+            .then((data) => {
+                console.log('Zalogowano pomyślnie :');
+                alert('Zalogowano pomyślnie ' + data.message);
+                console.log('Wygenerowano token: ', data.token);
+                const token = data.token;
+                onLogin(token);
+            })
+            .catch((error) => {
+                console.error('Wystąpił błąd: ', error.message);
+                alert('Wystąpił błąd: ' + error.message);
             });
-            const data = await response.json();
-            if (!response.ok) {
-                console.error('Błąd logowania:', data.error);
-                alert('Błąd logowania: '+  data.error)
-                return;
-            }
-
-
-            console.log('Zalogowano pomyślnie :');
-            alert('Zalogowano pomyślnie'+ data.message)
-            console.log('Wygenerowano token: ', data.token)
-            const token = data.token;
-            onLogin(token);
-        } catch (error) {
-            console.error('Wystąpił błąd:', error);
-            alert('Wystąpił błąd:', error)
-        }
     };
 
     return (
@@ -75,7 +78,9 @@ const LoginOrRegister = ({onLogin}) => {
                 <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
             </label>
             <br/>
-            <div><div onClick={()=>setflag(true)}>Login</div> or <div onClick={()=>setflag(false)}>Sign Up</div></div>
+            <div>
+                <div onClick={() => setflag(true)}>Login</div>
+                or <div onClick={() => setflag(false)}>Sign Up</div></div>
             {flag ?
                 (<button onClick={handleLogin}>Login</button>) : (<button onClick={handleRegister}>Register</button>
                 )}

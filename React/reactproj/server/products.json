@@ -3,8 +3,8 @@
     {
       "id": 1,
       "title": "Gym Bag",
-      "description": "Bag Bag Bag Bag Bag Bag Bag Bag Bag Bag Bag Bag Bag BagBag",
-      "price": 299,
+      "description": "Bag Bag Bag Bag Bag Bag Bag Bag Bag Bag Bag Bag Bag Bag Bag",
+      "price": "290",
       "discountPercentage": 10,
       "rating": 5,
       "stock": 18,
@@ -63,7 +63,7 @@
     {
       "id": 6,
       "title": "Citruline",
-      "description": "CitrulineCitrulineCitrulineCitrulineCitrulineCitrulineCitrulineCitruline",
+      "description": "Citruline Citruline Citruline Citruline Citruline Citruline Citruline Citruline",
       "price": 30,
       "discountPercentage": 15,
       "rating": 4,
@@ -75,7 +75,7 @@
     {
       "id": 7,
       "title": "bidon",
-      "description": "bidonbidonbidonbidonbidonbidonbidonbidonbidonbidon",
+      "description": "bidon bidon bidon bidon bidon bidonbidonbidonbidonbidon",
       "price": 60.59,
       "discountPercentage": 18,
       "rating": 5,
