@@ -1,0 +1,103 @@
+.products-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.product-card {
+    width: 40%;
+    padding: 0% 5% 5% 5%;
+    margin-top: 2%;
+    border-color: white;
+    border-style: solid;
+    border-radius: 45px;
+    position: relative;
+    background-color: black;
+}
+
+.product-conteiner {
+    display: flex;
+    flex-direction: row;
+}
+
+.product-properties {
+    word-wrap: break-word;
+    font-size: min(2vw, 20px);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    margin-left: 5%;
+}
+
+.product-img {
+    width: 45%;
+    object-fit: contain;
+}
+
+.product-description {
+    font-style: italic;
+    font-size: min(1.5vw, 15px);
+    margin-top: 5%;
+    margin-bottom: 5%;
+
+}
+.Dsc,.Asc,.Default{
+    cursor: pointer;
+}
+.product-footer{
+    display: flex;
+    justify-content: space-between;
+    font-size: min(2vw, 20px);
+}
+.sort-buttons{
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+}
+.sort-buttons div{
+    margin-left: 10%;
+    border-style: solid;
+    width: 50%;
+}
+.button-conteiner{
+    margin-top: 2%;
+    display: flex;
+    justify-content: center;
+
+}
+.buttons{
+    height: 30px;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.edit-conteiner{
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    margin-top: 2%;
+}
+.edit-icon{
+    cursor: pointer;
+}
+.product{
+    margin-top: 10%;
+}
+.accept-cancel span{
+    width: 10%;
+    border: solid;
+    border-color: white ;
+    background-color: white;
+    color: black;
+    border-radius: 45px;
+}
+.accept-cancel span:first-child{
+    margin-right: 5%;
+}
+.accept-cancel{
+    margin-top: 5%;
+}

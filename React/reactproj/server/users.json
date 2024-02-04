@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "username": "staszek",
+    "hashedPassword": "$2b$10$6adjLX5vuXhoRlxjjMf2y.RCd6i5g4lZXV4kvAqc99gOJ9v2/5AGO",
+    "salt": "$2b$10$6adjLX5vuXhoRlxjjMf2y."
+  },
+  {
+    "id": 2,
+    "username": "Jeremy",
+    "hashedPassword": "$2b$10$6yx4pfRGoYNnDN9HYu730ulG03c7onhOuPseVowovEH9RkpnLfT.y",
+    "salt": "$2b$10$6yx4pfRGoYNnDN9HYu730u"
+  },
+  {
+    "id": 3,
+    "username": "admin",
+    "hashedPassword": "$2b$10$Hu2XXGsPWZTD49Xz/iwYzeY0K53Vx6iMQYKBwyIG4U0.eSoa5yo8m",
+    "salt": "$2b$10$Hu2XXGsPWZTD49Xz/iwYze"
+  },
+  {
+    "id": 4,
+    "username": "Michalbar",
+    "hashedPassword": "$2b$10$KNmFK.y0lOzHmSl3HDZ63uhW2ErFN16QICNiPM4ZsLPf7YdEFXdbW",
+    "salt": "$2b$10$KNmFK.y0lOzHmSl3HDZ63u"
+  }
+]
