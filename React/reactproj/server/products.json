@@ -2,224 +2,195 @@
   "products": [
     {
       "id": 1,
-      "title": "iPhone 9",
-      "description": "An apple mobile which is nothing like apple",
-      "price": 549,
-      "discountPercentage": 12.96,
-      "rating": 4.69,
-      "stock": 94,
-      "brand": "Apple",
-      "category": "smartphones",
-      "images":
-        "https://cdn.dummyjson.com/product-images/1/1.jpg"
+      "title": "Gym Bag",
+      "description": "Bag Bag Bag Bag Bag Bag Bag Bag Bag Bag Bag Bag Bag BagBag",
+      "price": 299,
+      "discountPercentage": 10,
+      "rating": 5,
+      "stock": 18,
+      "brand": "SportsMan",
+      "category": "Accessories",
+      "images": "/images/tanktop.jpg"
     },
     {
-      "id" : 2,
+      "id": 2,
       "title": "Creatine",
-      "description": "creatinecreatinecreatinecreatinecreatinecreatinecreatinecreatinecreatine",
+      "description": "creatine creatine creatine creatine creatine creatine creatine creatine creatine",
       "price": 49.99,
       "discountPercentage": 5,
       "rating": 4.89,
       "stock": 200,
       "brand": "KFD",
       "category": "Suplements",
-      "images":
-      "/images/kfd-premium-creatine.webp"
+      "images": "/images/kfd-premium-creatine.webp"
     },
     {
-      "id" : 3,
+      "id": 3,
       "title": "Whey Protein",
-      "description": "ProteinProteinProteinProteinProteinProteinProteinProteinProteinProteinProteinProtein",
-      "price": 70.00,
+      "description": "Protein Protein Protein Protein Protein Protein Protein Protein Protein Protein Protein Protein",
+      "price": 70,
       "discountPercentage": 0,
-      "rating": 5.0,
+      "rating": 5,
       "stock": 150,
       "brand": "KFD",
       "category": "Suplements",
-      "images":
-      "/images/proteinPowder.jpg"
+      "images": "/images/proteinPowder.jpg"
     },
     {
-      "id" : 4,
+      "id": 4,
       "title": "Citruline",
-      "description": "CitrulineCitrulineCitrulineCitrulineCitrulineCitrulineCitrulineCitruline",
-      "price": 30.00,
+      "description": "Citruline Citruline Citruline Citruline Citruline Citruline Citruline Citruline",
+      "price": 30,
       "discountPercentage": 15,
-      "rating": 4.0,
+      "rating": 4,
       "stock": 120,
       "brand": "AllNutrition",
       "category": "Suplements",
-      "images":
-      "/images/citruline.jpg"
+      "images": "/images/citruline.jpg"
     },
     {
       "id": 5,
       "title": "Trenbolone Acetate",
-      "description": "TrenboloneTrenboloneTrenboloneTrenboloneTrenboloneTrenboloneTrenboloneTrenbolone",
-      "price": 200.00,
+      "description": "Trenbolone Trenbolone Trenbolone Trenbolone Trenbolone Trenbolone Trenbolone Trenbolone",
+      "price": 200,
       "discountPercentage": 0,
       "rating": 4.99,
       "stock": 12000,
       "brand": "GoodDealer",
       "category": "SafeSuplements",
-      "images": "/trenbolone.jpg"
+      "images": "/images/trenbolone.jpg"
     },
     {
-      "id" : 4,
+      "id": 6,
       "title": "Citruline",
       "description": "CitrulineCitrulineCitrulineCitrulineCitrulineCitrulineCitrulineCitruline",
-      "price": 30.00,
+      "price": 30,
       "discountPercentage": 15,
-      "rating": 4.0,
+      "rating": 4,
       "stock": 120,
       "brand": "AllNutrition",
       "category": "Suplements",
-      "images":
-      "/images/citruline.jpg"
+      "images": "/images/citruline.jpg"
     },
     {
-      "id" : 5,
+      "id": 7,
       "title": "bidon",
       "description": "bidonbidonbidonbidonbidonbidonbidonbidonbidonbidon",
       "price": 60.59,
       "discountPercentage": 18,
-      "rating": 5.0,
+      "rating": 5,
       "stock": 20,
       "brand": "KFD",
       "category": "Accessories",
-      "images":
-      "/images/bidon.jpg"
+      "images": "/images/bidon.jpg"
     },
     {
-      "id" : 6,
+      "id": 8,
       "title": "bidon",
       "description": "bidonbidonbidonbidonbidonbidonbidonbidonbidonbidon",
       "price": 60.59,
       "discountPercentage": 18,
-      "rating": 5.0,
+      "rating": 5,
       "stock": 20,
       "brand": "KFD",
       "category": "Accessories",
-      "images":
-      "/images/bidon.jpg"
+      "images": "/images/bidon.jpg"
     },
     {
-      "id" : 6,
+      "id": 9,
       "title": "hantle",
       "description": "hantlehantlehantlehantlehantlehantlehantlehantlehantlehantle",
-      "price": 150.00,
+      "price": 150,
       "discountPercentage": 20,
       "rating": 4.8,
       "stock": 10,
       "brand": "EGEAR",
       "category": "FreeWeights",
-      "images":
-      "/images/hantle.jpg"
+      "images": "/images/hantle.jpg"
     },
     {
-      "id" : 7,
+      "id": 10,
       "title": "hantle",
       "description": "hantlehantlehantlehantlehantlehantlehantlehantlehantlehantle",
-      "price": 150.00,
+      "price": 150,
       "discountPercentage": 20,
       "rating": 4.8,
       "stock": 10,
       "brand": "EGEAR",
       "category": "FreeWeights",
-      "images":
-      "/images/hantle.jpg"
+      "images": "/images/hantle.jpg"
     },
     {
-      "id" : 8,
+      "id": 11,
       "title": "Ławka do Wyciskania",
       "description": "BenchPressBenchPressBenchPressBenchPressBenchPressBenchPressBenchPress",
-      "price": 999.00,
+      "price": 999,
       "discountPercentage": 30,
       "rating": 4.7,
       "stock": 10,
       "brand": "EGEAR",
       "category": "FreeWeights",
-      "images":
-      "/images/BenchPress.jpg"
+      "images": "/images/BenchPress.jpg"
     },
     {
-      "id" : 9,
+      "id": 12,
       "title": "PecFly",
-      "description": "PecFlyPecFlyPecFlyPecFlyPecFlyPecFlyPecFlyPecFlyPecFlyPecFlyPecFly",
-      "price": 899.00,
+      "description": "PecFly PecFly PecFly PecFly PecFly PecFly PecFly PecFly PecFly PecFly PecFly",
+      "price": 899,
       "discountPercentage": 0,
       "rating": 4.5,
       "stock": 10,
       "brand": "EGEAR",
       "category": "Machines",
-      "images":
-      "/images/PecFly.jpg"
+      "images": "/images/PecFly.jpg"
     },
     {
-      "id" : 10,
+      "id": 13,
       "title": "Barbell",
-      "description": "BarbellBarbellBarbellBarbellBarbellBarbellBarbellBarbell",
-      "price": 499.00,
+      "description": "Barbell Barbell Barbell Barbell Barbell Barbell Barbell Barbell",
+      "price": 499,
       "discountPercentage": 3,
       "rating": 4.2,
       "stock": 10,
       "brand": "EGEAR",
       "category": "FreeWeights",
-      "images":
-      "/images/barbell.jpg"
+      "images": "/images/barbell.jpg"
     },
     {
-      "id" : 11,
+      "id": 14,
       "title": "Kettlebell",
-      "description": "BarbellBarbellBarbellBarbellBarbellBarbellBarbellBarbell",
-      "price": 499.00,
+      "description": "Barbell Barbell Barbell Barbell Barbell Barbell Barbel lBarbell",
+      "price": 499,
       "discountPercentage": 3,
       "rating": 3.2,
       "stock": 10,
       "brand": "EGEAR",
       "category": "FreeWeights",
-      "images":
-      "/images/kettlebell.jpg"
+      "images": "/images/kettlebell.jpg"
     },
     {
-      "id" : 12,
+      "id": 15,
       "title": "latMachine",
-      "description": "latMachinelatMachinelatMachinelatMachinelatMachinelatMachinelatMachine",
-      "price": 999.00,
+      "description": "latMachine latMachine latMachine latMachine latMachine latMachine latMachine",
+      "price": 999,
       "discountPercentage": 13,
       "rating": 4.7,
       "stock": 10,
       "brand": "EGEAR",
       "category": "Machines",
-      "images":
-      "/images/latMachine.jpg"
+      "images": "/images/latMachine.jpg"
     },
     {
-      "id" : 13,
+      "id": 16,
       "title": "SportShoes",
       "description": "SportShoesSportShoesSportShoesSportShoesSportShoesSportShoesSportShoes",
-      "price": 399.00,
+      "price": 399,
       "discountPercentage": 10,
       "rating": 4.8,
       "stock": 15,
       "brand": "SportsMan",
       "category": "clothes",
-      "images":
-      "/images/sportShoes.png"
-    },
-    {
-      "id" : 15,
-      "title": "Gym Bag",
-      "description": "BagBagBagBagBagBagBagBagBagBagBagBagBagBagBag",
-      "price": 299.00,
-      "discountPercentage": 10,
-      "rating": 5.0,
-      "stock": 18,
-      "brand": "SportsMan",
-      "category": "Accessories",
-      "images":
-      "/images/tanktop.png"
+      "images": "/images/sportShoes.png"
     }
-
   ]
 }

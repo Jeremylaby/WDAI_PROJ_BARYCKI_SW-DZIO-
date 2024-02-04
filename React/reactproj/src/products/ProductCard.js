@@ -2,7 +2,8 @@ import React, { useRef, useState, useEffect } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 
-function Product({ product, onEdit,role }) {
+
+function ProductCard({ product, onEdit,role }) {
     const [edit, setEdit] = useState(false);
     const [editedTitle, setEditedTitle] = useState(product.title);
     const [editedDescription, setEditedDescription] = useState(product.description);
@@ -42,7 +43,7 @@ function Product({ product, onEdit,role }) {
             )}
             <div className="product">
                 <div className="product-conteiner">
-                    <img className="product-img" src={product.thumbnail} alt={product.title} />
+                    <img className="product-img" src={"http://localhost:8080"+product.images} alt={product.title} />
                     <div className="product-properties">
             <span
                 contentEditable={edit}
@@ -81,4 +82,4 @@ function Product({ product, onEdit,role }) {
     );
 }
 
-export default Product;
+export default ProductCard;

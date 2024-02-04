@@ -76,10 +76,10 @@ const LoginOrRegister = ({onLogin}) => {
             </label>
             <br/>
             <div><div onClick={()=>setflag(true)}>Login</div> or <div onClick={()=>setflag(false)}>Sign Up</div></div>
-    {flag ?
-        (<button onClick={handleLogin}>Login</button>) : (<button onClick={handleRegister}>Register</button>
-        )}
-</div>
-);
+            {flag ?
+                (<button onClick={handleLogin}>Login</button>) : (<button onClick={handleRegister}>Register</button>
+                )}
+        </div>
+    );
 };
 export default LoginOrRegister

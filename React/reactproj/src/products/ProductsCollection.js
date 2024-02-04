@@ -1,25 +1,37 @@
 import React, {useState, useEffect} from "react";
-import ProductsList from "./ProductList";
+import ProductsList from "./ProductsMap";
 import ReactDOM from "react-dom/client";
 import './products.css'
-import product from "./Product";
+import product from "./ProductCard";
 
 
-function Products({role}) {
+function ProductsCollection({role}) {
     const [data, setData] = useState([]);
     const [productsdata, setProductsData] = useState([]);
     const [category, setcategory] = useState("default")
     const [searchePhrase, setSearcePhrase] = useState("")
 
     useEffect(() => {
-        fetch("https://dummyjson.com/products")
-            .then((response) => response.json())
-            .then((Data) => {
-                setData(Data.products)
-                setProductsData(Data.products)
-                console.log(data);
+        fetch('http://localhost:8080/getproducts', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json(); // Dodaj return, aby zwrócić wynik do następnego .then
             })
-            .catch((error) => console.log(error));
+            .then((data) => {
+                setData(data.products); // Zakładając, że serwer zwraca obiekt z kluczem 'products'
+                setProductsData(data.products);
+                console.log(data.products);
+            })
+            .catch((error) => {
+                console.error('Błąd podczas pobierania danych:', error);
+            });
     }, []);
 
     const sortItems = (type) => {
@@ -69,13 +81,27 @@ function Products({role}) {
 
 
     }
-    const handleEdit = (product,id)=>{
-        let newData=[...data]
-        newData[id-1]=product
+    const handleEdit = async (product, id) => {
+        let newData = [...data]
+        newData[id - 1] = product
         setData(newData)
-        newData=[...productsdata]
-        newData[id-1]=product
+        newData = [...productsdata]
+        newData[id - 1] = product
         setProductsData(newData)
+        try {
+            const response = await fetch(`http://localhost:8080/products/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(product),
+            });
+            if (!response.ok) {
+                throw new Error('Nie udało się zaktualizować produktu.');
+            }
+        } catch (error) {
+            console.error('Wystąpił błąd podczas aktualizacji produktu:', error);
+        }
 
 
     }
@@ -101,19 +127,18 @@ function Products({role}) {
                     categoryItems(e)
                 }}>
                     <option value="default">default</option>
-                    <option value="smartphones">smartphones</option>
-                    <option value="laptops">laptops</option>
-                    <option value="fragrances">fragrances</option>
-                    <option value="skincare">skincare</option>
-                    <option value="groceries">groceries</option>
-                    <option value="home-decoration">home-decoration</option>
+                    <option value="Suplements">Suplements</option>
+                    <option value="Accessories">Accessories</option>
+                    <option value="FreeWeights">FreeWeights</option>
+                    <option value="Machines">Machines</option>
+                    <option value="clothes">clothes</option>
                 </select></div>
                 <input type="text" placeholder={"search"} onChange={(e) => searchItems(e)}/></div>
         </div>
         <ProductsList products={productsdata}  onEdit={handleEdit} role={role}/></>)
 }
 
-export default Products
+export default ProductsCollection
 
 
 function replaceNotLetters(text) {
