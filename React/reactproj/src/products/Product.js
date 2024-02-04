@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 
-function Product({ product, onEdit }) {
+function Product({ product, onEdit,role }) {
     const [edit, setEdit] = useState(false);
     const [editedTitle, setEditedTitle] = useState(product.title);
     const [editedDescription, setEditedDescription] = useState(product.description);
@@ -28,7 +28,7 @@ function Product({ product, onEdit }) {
 
     return (
         <div className="product-card">
-            {!edit && (
+            {!edit && role=="admin"&& (
                 <div className={"edit-conteiner"}>
                     <FontAwesomeIcon
                         className={"edit-icon"}

@@ -5,12 +5,11 @@ import './products.css'
 import product from "./Product";
 
 
-function Products() {
+function Products({role}) {
     const [data, setData] = useState([]);
     const [productsdata, setProductsData] = useState([]);
     const [category, setcategory] = useState("default")
     const [searchePhrase, setSearcePhrase] = useState("")
-
 
     useEffect(() => {
         fetch("https://dummyjson.com/products")
@@ -111,7 +110,7 @@ function Products() {
                 </select></div>
                 <input type="text" placeholder={"search"} onChange={(e) => searchItems(e)}/></div>
         </div>
-        <ProductsList products={productsdata} onEdit={handleEdit}/></>)
+        <ProductsList products={productsdata}  onEdit={handleEdit} role={role}/></>)
 }
 
 export default Products

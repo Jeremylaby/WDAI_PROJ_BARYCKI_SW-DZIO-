@@ -60,7 +60,7 @@ app.post('/register', async (req, res) => {
 
         // Dodanie użytkownika do listy
         users.push(newUser);
-        const token = jwt.sign({ userId: newUser.id }, secretKey, { expiresIn: '1h' });
+        const token = jwt.sign({ userId: newUser.id ,role: "user"}, secretKey, { expiresIn: '1h' });
 
         res.status(201).json({ message: 'Super', token });
         fs.writeFileSync('users.json', JSON.stringify(users,null,2));
@@ -94,7 +94,7 @@ app.post('/login', async (req, res) => {
         }
 
         // Wygeneruj JWT
-        const token = jwt.sign({ userId: user.id }, secretKey, { expiresIn: '1h' });
+        const token = jwt.sign({ userId: user.id ,role: "user"}, secretKey, { expiresIn: '1h' });
 
         res.json({ token });
     } catch (error) {
