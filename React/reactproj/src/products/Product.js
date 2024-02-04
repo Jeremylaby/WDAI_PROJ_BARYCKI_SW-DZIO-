@@ -28,7 +28,7 @@ function Product({ product, onEdit,role }) {
 
     return (
         <div className="product-card">
-            {!edit && role=="admin"&& (
+            {!edit && (role==="admin")&& (
                 <div className={"edit-conteiner"}>
                     <FontAwesomeIcon
                         className={"edit-icon"}

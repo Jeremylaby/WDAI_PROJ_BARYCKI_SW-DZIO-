@@ -17,24 +17,21 @@ const LoginOrRegister = ({onLogin}) => {
                 },
                 body: JSON.stringify({username,scryptedPassword}),
             });
-
+            const data = await response.json();
             if (!response.ok) {
-                // Tutaj obsłuż błędy zwrócone przez serwer
-                console.error('Błąd rejestracji:', response.statusText);
-                alert('Błąd rejestracji:', response.statusText)
+                console.error('Błąd rejestracji :'+ data.error);
+                alert('Błąd rejestracji: '+ data.error)
                 return;
             }
-
-            const data = await response.json();
             console.log('Rejestracja zakończona pomyślnie:', data.message);
             alert('Rejestracja zakończona pomyślnie:', data.message)
             console.log('Wygenerowano token: ', data.token)
-            const token = data.token;
-            onLogin(token);
+            onLogin(data.token);
         } catch (error) {
             console.error('Wystąpił błąd:', error);
             alert('Wystąpił błąd:', error)
         }
+
     };
     const handleLogin = async () => {
         const scryptedPassword=CryptoJS.AES.encrypt(password,key).toString();
@@ -55,7 +52,7 @@ const LoginOrRegister = ({onLogin}) => {
 
 
             console.log('Zalogowano pomyślnie :');
-            alert('Zalogowano pomyślnie')
+            alert('Zalogowano pomyślnie'+ data.message)
             console.log('Wygenerowano token: ', data.token)
             const token = data.token;
             onLogin(token);

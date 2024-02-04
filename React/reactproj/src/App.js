@@ -11,6 +11,13 @@ function App() {
     const secretKey = 'nie-pokazuj-tego-klucza-nikomu';
     const handleLogin = (newToken) => {
         setToken(newToken);
+        try {
+            const decodedToken = jwtDecode(newToken);
+            const role = decodedToken.role;
+            console.log('Rola użytkownika:', role);
+        } catch (error) {
+            console.error('Błąd dekodowania tokena:', error);
+        }
     }
     return(<body>{!token?(<LoginOrRegister onLogin={handleLogin}/>):(<div className={"Wrapper"}><BrowserRouter>
       <Routes>
