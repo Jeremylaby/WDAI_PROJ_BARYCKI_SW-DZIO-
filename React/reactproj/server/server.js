@@ -7,6 +7,8 @@ const app = express();
 const fs =require('fs')
 const port = process.env.PORT || 8080; //Line 3
 const secretKey = 'nie-pokazuj-tego-klucza-nikomu';
+const key = "SuperSecretKeyKrzysztof"
+const CryptoJS = require('crypto-js');
 const filePath="users.json"
 let users
 fs.readFile(filePath, 'utf8', (err, data) => {
@@ -33,9 +35,10 @@ app.get('/', (req, res) => {
 
 app.post('/register', async (req, res) => {
     try {
-        const { username, password } = req.body;
+        const { username, scryptedPassword } = req.body;
 
-        // Sprawdź, czy użytkownik o danej nazwie już istnieje
+        const bytes  = CryptoJS.AES.decrypt(scryptedPassword, key);
+        const password = bytes.toString(CryptoJS.enc.Utf8);
         const existingUser = users.find((u) => u.username === username);
 
         if (existingUser) {
@@ -45,8 +48,6 @@ app.post('/register', async (req, res) => {
         // Generowanie soli
         const saltRounds = 10;
         const salt = await bcrypt.genSalt(saltRounds);
-
-        // Haszowanie hasła z użyciem soli
         const hashedPassword = await bcrypt.hash(password, salt);
 
         // Tworzenie obiektu użytkownika
@@ -72,19 +73,17 @@ app.post('/register', async (req, res) => {
 
 app.post('/login', async (req, res) => {
     try {
-        const { username, password } = req.body;
+        const { username, scryptedPassword } = req.body;
 
         // Znajdź użytkownika w bazie danych
         const user = users.find((u) => u.username === username);
-
+        const bytes  = CryptoJS.AES.decrypt(scryptedPassword, key);
+        const password = bytes.toString(CryptoJS.enc.Utf8);
         if (!user) {
             return res.status(401).json({ error: 'Invalid username' });
         }
-
         // Pobierz sol (salt) z bazy danych
         const salt = user.salt;
-
-        // Haszuj podane przez użytkownika hasło z użyciem pobranej soli
         const hashedPassword = await bcrypt.hash(password, salt);
 
         // Sprawdź hasło

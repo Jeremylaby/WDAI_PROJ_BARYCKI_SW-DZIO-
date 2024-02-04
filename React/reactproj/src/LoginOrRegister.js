@@ -1,18 +1,21 @@
 import React, {useState} from 'react';
+import CryptoJS from 'crypto-js';
 
 const LoginOrRegister = ({onLogin}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [flag, setflag] = useState(true);
+    const key = "SuperSecretKeyKrzysztof";
 
     const handleRegister = async () => {
+        const scryptedPassword=CryptoJS.AES.encrypt(password,key).toString();
         try {
             const response = await fetch('http://localhost:8080/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({username, password}),
+                body: JSON.stringify({username,scryptedPassword}),
             });
 
             if (!response.ok) {
@@ -34,13 +37,14 @@ const LoginOrRegister = ({onLogin}) => {
         }
     };
     const handleLogin = async () => {
+        const scryptedPassword=CryptoJS.AES.encrypt(password,key).toString();
         try {
             const response = await fetch('http://localhost:8080/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({username, password}),
+                body: JSON.stringify({username, scryptedPassword}),
             });
             const data = await response.json();
             if (!response.ok) {
