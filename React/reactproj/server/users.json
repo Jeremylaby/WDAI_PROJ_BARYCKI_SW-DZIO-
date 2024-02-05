@@ -13,14 +13,14 @@
   },
   {
     "id": 3,
-    "username": "admin",
-    "hashedPassword": "$2b$10$Hu2XXGsPWZTD49Xz/iwYzeY0K53Vx6iMQYKBwyIG4U0.eSoa5yo8m",
-    "salt": "$2b$10$Hu2XXGsPWZTD49Xz/iwYze"
-  },
-  {
-    "id": 4,
     "username": "Michalbar",
     "hashedPassword": "$2b$10$KNmFK.y0lOzHmSl3HDZ63uhW2ErFN16QICNiPM4ZsLPf7YdEFXdbW",
     "salt": "$2b$10$KNmFK.y0lOzHmSl3HDZ63u"
+  },
+  {
+    "id": 4,
+    "username": "1234",
+    "hashedPassword": "$2b$10$0/XwCvkTOZtgZNx7AmCWaObSwaMpf6zbL8bgC3Lhn7saNg7J2LWyC",
+    "salt": "$2b$10$0/XwCvkTOZtgZNx7AmCWaO"
   }
 ]
