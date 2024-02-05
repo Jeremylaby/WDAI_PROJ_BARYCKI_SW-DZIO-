@@ -65,32 +65,6 @@
       "images": "/trenbolone.jpg"
     },
     {
-      "id" : 4,
-      "title": "Citruline",
-      "description": "CitrulineCitrulineCitrulineCitrulineCitrulineCitrulineCitrulineCitruline",
-      "price": 30.00,
-      "discountPercentage": 15,
-      "rating": 4.0,
-      "stock": 120,
-      "brand": "AllNutrition",
-      "category": "Suplements",
-      "images":
-      "/images/citruline.jpg"
-    },
-    {
-      "id" : 5,
-      "title": "bidon",
-      "description": "bidonbidonbidonbidonbidonbidonbidonbidonbidonbidon",
-      "price": 60.59,
-      "discountPercentage": 18,
-      "rating": 5.0,
-      "stock": 20,
-      "brand": "KFD",
-      "category": "Accessories",
-      "images":
-      "/images/bidon.jpg"
-    },
-    {
       "id" : 6,
       "title": "bidon",
       "description": "bidonbidonbidonbidonbidonbidonbidonbidonbidonbidon",
@@ -102,19 +76,6 @@
       "category": "Accessories",
       "images":
       "/images/bidon.jpg"
-    },
-    {
-      "id" : 6,
-      "title": "hantle",
-      "description": "hantlehantlehantlehantlehantlehantlehantlehantlehantlehantle",
-      "price": 150.00,
-      "discountPercentage": 20,
-      "rating": 4.8,
-      "stock": 10,
-      "brand": "EGEAR",
-      "category": "FreeWeights",
-      "images":
-      "/images/hantle.jpg"
     },
     {
       "id" : 7,
@@ -208,7 +169,7 @@
       "/images/sportShoes.png"
     },
     {
-      "id" : 15,
+      "id" : 14,
       "title": "Gym Bag",
       "description": "BagBagBagBagBagBagBagBagBagBagBagBagBagBagBag",
       "price": 299.00,
@@ -218,7 +179,20 @@
       "brand": "SportsMan",
       "category": "Accessories",
       "images":
-      "/images/tanktop.png"
+      "/images/GymBag.png"
+    },
+    {
+      "id" : 15,
+      "title": "TankTop",
+      "description": "TankTopTankTopTankTopTankTopTankTopTankTopTankTop",
+      "price": 199.00,
+      "discountPercentage": 10,
+      "rating": 5.0,
+      "stock": 18,
+      "brand": "SportsMan",
+      "category": "Accessories",
+      "images":
+      "/images/tanktop.jpg"
     }
 
   ]
