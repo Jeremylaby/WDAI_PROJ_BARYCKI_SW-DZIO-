@@ -3,6 +3,7 @@ import ProductsList from "./ProductsMap";
 import ReactDOM from "react-dom/client";
 import './products.css'
 import product from "./ProductCard";
+import {Link} from "react-router-dom";
 
 
 function ProductsCollection({role}) {
@@ -81,6 +82,9 @@ function ProductsCollection({role}) {
 
 
     }
+    const addToCart = async (product) =>{
+
+    }
     const handleEdit = async (product, id) => {
         let newData = [...data];
         newData[id - 1] = product;
@@ -133,9 +137,13 @@ function ProductsCollection({role}) {
                     <option value="Machines">Machines</option>
                     <option value="clothes">clothes</option>
                 </select></div>
-                <input type="text" placeholder={"search"} onChange={(e) => searchItems(e)}/></div>
+                <input type="text" placeholder={"search"} onChange={(e) => searchItems(e)}/>
+            <div link = "/product">
+                chuj
+                <Link to="/">chuj</Link>
+            </div></div>
         </div>
-        <ProductsList products={productsdata} onEdit={handleEdit} role={role}/></>)
+        <ProductsList products={productsdata} onEdit={handleEdit} role={role} addToCart = {addToCart}/></>)
 }
 
 export default ProductsCollection

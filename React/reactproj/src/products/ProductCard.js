@@ -1,6 +1,7 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react'; // Add useContext to your import from React
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { CartContext } from './CartElements/CartContext';
 
 
 function ProductCard({ product, onEdit,role }) {
@@ -8,6 +9,8 @@ function ProductCard({ product, onEdit,role }) {
     const [editedTitle, setEditedTitle] = useState(product.title);
     const [editedDescription, setEditedDescription] = useState(product.description);
     const [editedPrice, setEditedPrice] = useState(product.price);
+
+    const { addToCart } = useContext(CartContext);
 
     const handleCancel = () => {
         setEditedTitle(product.title);
@@ -77,6 +80,7 @@ function ProductCard({ product, onEdit,role }) {
                         <span onClick={handleAccept}>Accept</span>
                     </div>
                 )}
+                <button onClick={() => addToCart(product)}>Add to Cart</button>
             </div>
         </div>
     );
