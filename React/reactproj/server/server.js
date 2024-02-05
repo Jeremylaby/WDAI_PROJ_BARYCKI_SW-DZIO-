@@ -20,32 +20,39 @@ let users
 let admins
 let products
 
-fs.readFile(usersPath, 'utf8', (err, data) => {
-    if (err) {
-        console.error('Błąd odczytu pliku:', err);
-        return;
-    }
+function getUsers() {
+    fs.readFile(usersPath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Błąd odczytu pliku:', err);
+            return;
+        }
 
-    try {
-        users = JSON.parse(data);
-        console.log(users); // Dane z pliku JSON
-    } catch (parseError) {
-        console.error('Błąd parsowania danych JSON:', parseError);
-    }
-});
-fs.readFile(adminsPath, 'utf8', (err, data) => {
-    if (err) {
-        console.error('Błąd odczytu pliku:', err);
-        return;
-    }
+        try {
+            users = JSON.parse(data);
+        } catch (parseError) {
+            console.error('Błąd parsowania danych JSON:', parseError);
+        }
 
-    try {
-        admins = JSON.parse(data);
-        console.log(admins); // Dane z pliku JSON
-    } catch (parseError) {
-        console.error('Błąd parsowania danych JSON:', parseError);
-    }
-});
+    });
+}
+
+function getAdmins() {
+    fs.readFile(adminsPath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Błąd odczytu pliku:', err);
+            return;
+        }
+
+        try {
+            admins = JSON.parse(data);
+            console.log(admins); // Dane z pliku JSON
+        } catch (parseError) {
+            console.error('Błąd parsowania danych JSON:', parseError);
+        }
+    });
+}
+getUsers();
+getAdmins();
 app.use(cors())
 app.use(bodyParser.json());
 app.use('/images', express.static(path.join(__dirname, 'images')));
@@ -59,15 +66,24 @@ async function loadProducts() {
     products = JSON.parse(data);
 }
 
-app.get('/getproducts', async (req,res) => {
-        try {
-            await loadProducts();
-            res.json(products); // Przekazuj dane w obiekcie
-        } catch (error) {
-            console.error('Błąd odczytu pliku lub parsowania JSON:', error);
-            res.status(500).json({error: 'Internal server error'});
-        }
-    });
+app.get('/getproducts', async (req, res) => {
+    try {
+        await loadProducts();
+        res.json(products); // Przekazuj dane w obiekcie
+    } catch (error) {
+        console.error('Błąd odczytu pliku lub parsowania JSON:', error);
+        res.status(500).json({error: 'Internal server error'});
+    }
+});
+app.get("/persons/users/get",async (req,res)=>{
+    try {
+        getUsers();
+        res.json(users)
+    }catch (error){
+        console.error('Błąd odczytu pliku lub parsowania JSON:', error);
+        res.status(500).json({error: 'Internal server error'});
+    }
+})
 app.post('/register', async (req, res) => {
     try {
         const {username, scryptedPassword} = req.body;
@@ -160,13 +176,13 @@ app.put('/products/:id', async (req, res) => {
     try {
         //odczytywanie danych z pliku
         await loadProducts();
-        products.products[productId-1] = updatedProduct;
+        products.products[productId - 1] = updatedProduct;
         await fs.promises.writeFile(productsPath, JSON.stringify(products, null, 2), 'utf8');
 
-        res.json({message: "Produkt o id: "+productId+" dodany pomyślnie"});
+        res.json({message: "Produkt o id: " + productId + " dodany pomyślnie"});
     } catch (error) {
         console.error('Błąd podczas aktualizacji produktu:', error);
-        res.status(500).json({ message: 'Wystąpił błąd podczas aktualizacji produktu' });
+        res.status(500).json({message: 'Wystąpił błąd podczas aktualizacji produktu'});
     }
 });
 

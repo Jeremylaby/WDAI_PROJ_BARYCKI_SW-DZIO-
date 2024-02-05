@@ -45,16 +45,18 @@ nav{
   width: 100%;
   padding-top: 5%;
   padding-bottom: 5%;
-  justify-content: center;
+  padding-left: 5%;
+  padding-right: 5%;
   text-align: center;
   display: flex;
+  justify-content: space-between;
   margin-top: 0;
   margin-bottom: 0;
-  padding-left: 0;
   position: relative;
 }
 .Menu li{
   display: block;
+  margin-right: 2%;
   border-style: solid;
   border-color: #d9b7b7;
 }
@@ -73,11 +75,9 @@ nav{
   padding-bottom: 20px;
   display: block;
 }
-.Menu  li:first-child{
-  margin-right: 10%;
-}
+
 .Menu  li:last-child{
-  margin-left: 10%;
+  margin-right: 0%;
 }
 .Menu  a:hover{
   background-color: #210f0f;
