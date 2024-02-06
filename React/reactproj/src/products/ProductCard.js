@@ -1,7 +1,8 @@
 import React, { useState, useContext } from 'react'; // Add useContext to your import from React
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
-import { CartContext } from './CartElements/CartContext';
+import {CartContext} from "../CartElements/CartContext";
+
 
 
 function ProductCard({ product, onEdit,role }) {
