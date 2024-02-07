@@ -11,9 +11,9 @@ import Users from "./persons/Users";
 function App() {
     const [token, setToken] = useState("")
     const [role, setRole] = useState("")
-    const secretKey = 'nie-pokazuj-tego-klucza-nikomu';
     const handleLogin = (newToken) => {
         setToken(newToken);
+        console.log(newToken)
         try {
             const decodedToken = jwtDecode(newToken);
             setRole(decodedToken.role);
@@ -34,7 +34,7 @@ function App() {
                     </Route>
                     {role==="admin" &&(<Route element={<Layout role={role}/>}>
                         <Route path="persons">
-                            <Route path={"/persons/users"} element={<Users/>}/>
+                            <Route path={"/persons/users"}  element={<Users token={token}/>}/>
                         </Route>
                     </Route>)}
                 </Routes></BrowserRouter>

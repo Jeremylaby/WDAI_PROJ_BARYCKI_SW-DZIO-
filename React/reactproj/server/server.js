@@ -12,6 +12,7 @@ const secretKey = 'nie-pokazuj-tego-klucza-nikomu';
 const key = "SuperSecretKeyKrzysztof"
 const CryptoJS = require('crypto-js');
 const {join} = require("path");
+const {jwtDecode} = require("jwt-decode");
 
 const usersPath = "users.json";
 const adminsPath = "admins.json";
@@ -105,11 +106,29 @@ function removeFromDatabase(removeData,addData, id) {
     }
     fs.writeFileSync(usersPath, JSON.stringify(users, null, 2));
     fs.writeFileSync(adminsPath, JSON.stringify(admins, null, 2));
+    getUsers();
+    getAdmins();
 }
+
 app.post("/persons/users/grantpermission/:id", async (req,res)=>{
-    const userId=parseInt(req.params.id)
-    removeFromDatabase(users,admins,userId)
-    res.status(201).json({message: 'Permission granted successfully'});
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        return res.status(401).json({ error: 'Brak tokena lub jest nieprawidłowy' });
+    }
+    const token = authHeader.split(' ')[1];
+    try {
+        const decoded = jwt.verify(token, secretKey);
+        if(jwtDecode(token).role==="admin") {
+            console.log(decoded);
+            const userId = parseInt(req.params.id)
+            removeFromDatabase(users, admins, userId)
+            res.status(201).json({message: 'Permission granted successfully'});
+        }else{
+            res.status(500).json({error: 'you are not admin'});
+        }
+    } catch (error) {
+        console.error('Błąd weryfikacji tokena:', error.message);
+    }
 })
 app.post('/register', async (req, res) => {
     try {

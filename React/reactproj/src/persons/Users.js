@@ -2,9 +2,8 @@ import React, {useEffect, useState} from "react";
 import ProductCard from "../products/ProductCard";
 import UserCard from "./UserCard";
 
-function Users() {
+function Users({token}) {
     const [users, setUsers] = useState([])
-    const [admins, setAdmins] = useState([]);
 
     function getUsers() {
         fetch('http://localhost:8080/persons/users/get', {
@@ -36,6 +35,7 @@ function Users() {
         fetch(`http://localhost:8080/persons/users/grantpermission/${user.id}`, {
             method: "POST",
             headers: {
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',
             }
         }).then((response) => {
