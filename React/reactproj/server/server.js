@@ -90,24 +90,28 @@ app.get("/persons/users/get",async (req,res)=>{
         res.status(500).json({error: 'Internal server error'});
     }
 })
-function removeFromDatabase(data, id) {
-    const lenght=data.size()
-    const user=data[id-1]
+function removeFromDatabase(removeData,addData, id) {
+    const lenght=removeData.length
+    const user=removeData[id-1]
+    user.id=addData.length+1
     if(lenght>1){
-        data[lenght-1].id=id-1
-        data[id-1]=data[lenght-1]
-        data.splice(lenght-1,1)
-        admins.push(user)
+        removeData[lenght-1].id=id-1
+        removeData[id-1]=removeData[lenght-1]
+        removeData.splice(lenght-1,1)
+        addData.push(user)
+        removeData.map((user)=>{ if(user.id>id-1){
+            user.id=user.id-1;
+        }})
     }else{
-        admins.push(user)
-        data.splice(lenght-1,1)
+        addData.push(user)
+        removeData.splice(lenght-1,1)
     }
     fs.writeFileSync(usersPath, JSON.stringify(users, null, 2));
     fs.writeFileSync(adminsPath, JSON.stringify(admins, null, 2));
 }
 app.post("/persons/users/grantpermission/:id", async (req,res)=>{
     const userId=parseInt(req.params.id)
-    removeFromDatabase(users,userId)
+    removeFromDatabase(users,admins,userId)
     res.status(201).json({message: 'Permission granted successfully'});
 })
 app.post('/register', async (req, res) => {

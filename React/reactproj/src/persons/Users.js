@@ -2,9 +2,9 @@ import React, {useEffect, useState} from "react";
 import ProductCard from "../products/ProductCard";
 import UserCard from "./UserCard";
 
-function Users(){
-    const [users,setUsers]=useState([])
-    const [admins,setAdmins]=useState([]);
+function Users() {
+    const [users, setUsers] = useState([])
+    const [admins, setAdmins] = useState([]);
 
     function getUsers() {
         fetch('http://localhost:8080/persons/users/get', {
@@ -31,8 +31,9 @@ function Users(){
     useEffect(() => {
         getUsers();
     }, []);
-    function handleAddAdmin(user){
-        fetch(`'http://localhost:8080/persons/users/grantpermission${user.id}`,{
+
+    function handleAddAdmin(user) {
+        fetch(`http://localhost:8080/persons/users/grantpermission/${user.id}`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -42,14 +43,18 @@ function Users(){
                 throw new Error('Nie udało się dodac permisji');
             }
             return response.json();
-        }).then((data)=>{
+        }).then((data) => {
             console.log(data.message)
+            getUsers();
         }).catch((error) => {
             console.error('Błąd podczas w czasie dodawania permisji: ', error);
         });
     }
-return<>
-    <div className="products-list">
-        {users.map((user) => (<UserCard key={user.id} user={user} addAdmin={handleAddAdmin}/>))}</div>
-</>
-}export default Users;
+
+    return <>
+        <div className="products-list">
+            {users.map((user) => (<UserCard key={user.id} user={user} addAdmin={handleAddAdmin}/>))}</div>
+    </>
+}
+
+export default Users;
