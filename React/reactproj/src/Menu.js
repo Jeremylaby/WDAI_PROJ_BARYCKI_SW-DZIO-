@@ -23,7 +23,7 @@ function  Layout (role) {
                 </li>)}
                 {flag&&(
                     <li>
-                        <Link to={""}>Admini</Link>
+                        <Link to={"/persons/admins"}>Admini</Link>
                     </li>)}
 
             </ol>

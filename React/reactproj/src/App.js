@@ -6,6 +6,7 @@ import Helloworld from "./HelloWorld";
 import LoginOrRegister from "./Login/LoginOrRegister";
 import {jwtDecode} from 'jwt-decode'
 import Users from "./persons/Users";
+import Admins from "./persons/Admins";
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
                     {role==="admin" &&(<Route element={<Layout role={role}/>}>
                         <Route path="persons">
                             <Route path={"/persons/users"}  element={<Users token={token}/>}/>
+                            <Route path={"/persons/admins"}  element={<Admins token={token}/>}/>
                         </Route>
                     </Route>)}
                 </Routes></BrowserRouter>

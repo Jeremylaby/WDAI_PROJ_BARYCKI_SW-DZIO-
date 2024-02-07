@@ -52,6 +52,7 @@ function getAdmins() {
         }
     });
 }
+
 getUsers();
 getAdmins();
 app.use(cors())
@@ -76,33 +77,34 @@ app.get('/getproducts', async (req, res) => {
         res.status(500).json({error: 'Internal server error'});
     }
 });
-app.get("/persons/users/get",async (req,res)=>{
+app.get("/persons/users/get", async (req, res) => {
     try {
         getUsers();
-        const dataToSend=users.map((user)=>{
+        const dataToSend = users.map((user) => {
             return {
                 id: user.id,
                 username: user.username
             };
         })
         res.json(dataToSend)
-    }catch (error){
+    } catch (error) {
         console.error('Błąd odczytu pliku lub parsowania JSON:', error);
         res.status(500).json({error: 'Internal server error'});
     }
 })
-function removeFromDatabase(removeData,addData, id) {
-    const lenght=removeData.length
-    const user=removeData[id-1]
-    user.id=addData.length+1
-    if(lenght>1){
-        removeData[lenght-1].id=id
-        removeData[id-1]=removeData[lenght-1]
-        removeData.splice(lenght-1,1)
+
+function removeFromDatabase(removeData, addData, id) {
+    const lenght = removeData.length
+    const user = removeData[id - 1]
+    user.id = addData.length + 1
+    if (lenght > 1) {
+        removeData[lenght - 1].id = id
+        removeData[id - 1] = removeData[lenght - 1]
+        removeData.splice(lenght - 1, 1)
         addData.push(user)
-    }else{
+    } else {
         addData.push(user)
-        removeData.splice(lenght-1,1)
+        removeData.splice(lenght - 1, 1)
     }
     fs.writeFileSync(usersPath, JSON.stringify(users, null, 2));
     fs.writeFileSync(adminsPath, JSON.stringify(admins, null, 2));
@@ -110,23 +112,48 @@ function removeFromDatabase(removeData,addData, id) {
     getAdmins();
 }
 
-app.post("/persons/users/grantpermission/:id", async (req,res)=>{
+app.post("/persons/users/grantpermission/:id", async (req, res) => {
+    const userId = parseInt(req.params.id)
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-        return res.status(401).json({ error: 'Brak tokena lub jest nieprawidłowy' });
+        console.error('Token verification error:', 'The token is missing or invalid');
+        return res.status(401).json({error: 'The token is missing or invalid'});
     }
     const token = authHeader.split(' ')[1];
     try {
         const decoded = jwt.verify(token, secretKey);
-        if(jwtDecode(token).role==="admin") {
+        if (jwtDecode(token).role === "admin") {
             const userId = parseInt(req.params.id)
             removeFromDatabase(users, admins, userId)
             res.status(201).json({message: 'Permission granted successfully'});
-        }else{
+        } else {
             res.status(500).json({error: 'you are not admin'});
         }
     } catch (error) {
         console.error('Błąd weryfikacji tokena:', error.message);
+    }
+})
+app.post("/persons/admins/removepermission/:id", async (req, res) => {
+    const userId = parseInt(req.params.id)
+    const authHeader = req.headers.authorization;
+    const token = authHeader.split(' ')[1];
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        console.error('Token verification error:', 'The token is missing or invalid');
+        return res.status(401).json({error: 'The token is missing or invalid'});
+    }
+    if (userId === 1) {
+        return res.status(401).json({error: "This admin's permission cannot be taken away"});
+    }
+    try {
+        const decoded = jwt.verify(token, secretKey);
+        if (jwtDecode(token).role === "admin") {
+            removeFromDatabase(admins, users, userId)
+            res.status(201).json({message: 'Permission granted successfully'});
+        } else {
+            res.status(500).json({error: 'you are not admin'});
+        }
+    } catch (error) {
+        console.error('Token verification error:', error.message);
     }
 })
 app.post('/register', async (req, res) => {
@@ -173,6 +200,7 @@ app.post('/register', async (req, res) => {
         res.status(500).json({error: 'An error occurred during registration.'});
     }
 });
+
 
 app.post('/login', async (req, res) => {
     //funkcja pomocnicza do sprawdzenia poprawności wprowadzonego hasła
@@ -234,5 +262,6 @@ app.put('/products/:id', async (req, res) => {
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
 });
+
 
 
