@@ -92,39 +92,48 @@ app.get("/persons/users/get", async (req, res) => {
         res.status(500).json({error: 'Internal server error'});
     }
 })
-
-function removeFromDatabase(removeData, addData, id) {
-    const lenght = removeData.length
-    const user = removeData[id - 1]
-    user.id = addData.length + 1
-    if (lenght > 1) {
-        removeData[lenght - 1].id = id
-        removeData[id - 1] = removeData[lenght - 1]
-        removeData.splice(lenght - 1, 1)
-        addData.push(user)
-    } else {
-        addData.push(user)
-        removeData.splice(lenght - 1, 1)
+app.get("/persons/admins/get", async (req, res) => {
+    try {
+        getAdmins();
+        const dataToSend = admins.map((user) => {
+            return {
+                id: user.id,
+                username: user.username
+            };
+        })
+        res.json(dataToSend)
+    } catch (error) {
+        console.error('Błąd odczytu pliku lub parsowania JSON:', error);
+        res.status(500).json({error: 'Internal server error'});
     }
-    fs.writeFileSync(usersPath, JSON.stringify(users, null, 2));
-    fs.writeFileSync(adminsPath, JSON.stringify(admins, null, 2));
-    getUsers();
-    getAdmins();
-}
+})
+
+
 
 app.post("/persons/users/grantpermission/:id", async (req, res) => {
-    const userId = parseInt(req.params.id)
-    const authHeader = req.headers.authorization;
+    let userId = parseInt(req.params.id)
+    let authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
         console.error('Token verification error:', 'The token is missing or invalid');
         return res.status(401).json({error: 'The token is missing or invalid'});
     }
-    const token = authHeader.split(' ')[1];
+    let token = authHeader.split(' ')[1];
     try {
-        const decoded = jwt.verify(token, secretKey);
+        let decoded = jwt.verify(token, secretKey);
         if (jwtDecode(token).role === "admin") {
-            const userId = parseInt(req.params.id)
-            removeFromDatabase(users, admins, userId)
+            let lenght = users.length
+            let user = users[userId - 1]
+             if (lenght > 1) {
+                users[lenght - 1].id = userId
+                users[userId - 1] = users[lenght - 1]
+                admins.push({...user, id: admins.length + 1})
+                users.splice(lenght - 1, 1)
+            } else {
+                admins.push({...user, id: admins.length + 1})
+                users.splice(lenght - 1, 1)
+            }
+            fs.writeFileSync(usersPath, JSON.stringify(users, null, 2));
+            fs.writeFileSync(adminsPath, JSON.stringify(admins, null, 2));
             res.status(201).json({message: 'Permission granted successfully'});
         } else {
             res.status(500).json({error: 'you are not admin'});
@@ -132,22 +141,41 @@ app.post("/persons/users/grantpermission/:id", async (req, res) => {
     } catch (error) {
         console.error('Błąd weryfikacji tokena:', error.message);
     }
+    getUsers();
+    getAdmins()
 })
 app.post("/persons/admins/removepermission/:id", async (req, res) => {
-    const userId = parseInt(req.params.id)
-    const authHeader = req.headers.authorization;
-    const token = authHeader.split(' ')[1];
+    let userId = parseInt(req.params.id)
+    let authHeader = req.headers.authorization;
+    let token = authHeader.split(' ')[1];
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
         console.error('Token verification error:', 'The token is missing or invalid');
         return res.status(401).json({error: 'The token is missing or invalid'});
     }
     if (userId === 1) {
+        console.error("This admin's permission cannot be taken away");
         return res.status(401).json({error: "This admin's permission cannot be taken away"});
     }
     try {
         const decoded = jwt.verify(token, secretKey);
         if (jwtDecode(token).role === "admin") {
-            removeFromDatabase(admins, users, userId)
+            getUsers();
+            console.log(users)
+            console.log("users")
+            let lenght =admins.length
+            let user = admins[userId - 1]
+            user.id = users.length + 1
+            if (lenght > 1) {
+                admins[lenght - 1].id = userId
+                admins[userId - 1] = admins[lenght - 1]
+                users.push({...user, id: users.length + 1})
+                admins.splice(lenght - 1, 1)
+            } else {
+                users.push({...user, id: users.length + 1})
+                admins.splice(lenght - 1, 1)
+            }
+            fs.writeFileSync(usersPath, JSON.stringify(users, null, 2));
+            fs.writeFileSync(adminsPath, JSON.stringify(admins, null, 2));
             res.status(201).json({message: 'Permission granted successfully'});
         } else {
             res.status(500).json({error: 'you are not admin'});
@@ -155,20 +183,20 @@ app.post("/persons/admins/removepermission/:id", async (req, res) => {
     } catch (error) {
         console.error('Token verification error:', error.message);
     }
+    getUsers();
+    getAdmins()
 })
 app.post('/register', async (req, res) => {
     try {
         const {username, scryptedPassword} = req.body;
         const bytes = CryptoJS.AES.decrypt(scryptedPassword, key);
         const password = bytes.toString(CryptoJS.enc.Utf8);
-        //Sprawdzanie czy username albo password są z białych znaków
         if (!username.trim()) {
             return res.status(401).json({error: 'Username is Blank!!!'});
         }
         if (!password.trim()) {
             return res.status(401).json({error: 'Password is Blank!!!'});
         }
-        //SPrawdzanie czy nie ma danego użytkownika w bazie
         const existingUser = users.find((u) => u.username === username)
             || admins.find((u) => u.username === username);
         if (existingUser) {

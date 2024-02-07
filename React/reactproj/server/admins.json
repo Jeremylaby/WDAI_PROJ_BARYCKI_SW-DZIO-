@@ -1,7 +1,8 @@
-[{
-  "id": 1,
-  "username": "admin",
-  "hashedPassword": "$2b$10$Hu2XXGsPWZTD49Xz/iwYzeY0K53Vx6iMQYKBwyIG4U0.eSoa5yo8m",
-  "salt": "$2b$10$Hu2XXGsPWZTD49Xz/iwYze"
-}
+[
+  {
+    "id": 1,
+    "username": "admin",
+    "hashedPassword": "$2b$10$Hu2XXGsPWZTD49Xz/iwYzeY0K53Vx6iMQYKBwyIG4U0.eSoa5yo8m",
+    "salt": "$2b$10$Hu2XXGsPWZTD49Xz/iwYze"
+  }
 ]
