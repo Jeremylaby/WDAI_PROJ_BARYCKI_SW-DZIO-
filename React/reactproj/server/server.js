@@ -160,8 +160,6 @@ app.post("/persons/admins/removepermission/:id", async (req, res) => {
         const decoded = jwt.verify(token, secretKey);
         if (jwtDecode(token).role === "admin") {
             getUsers();
-            console.log(users)
-            console.log("users")
             let lenght =admins.length
             let user = admins[userId - 1]
             user.id = users.length + 1

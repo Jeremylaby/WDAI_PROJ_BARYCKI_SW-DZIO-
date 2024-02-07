@@ -1,9 +1,9 @@
 [
   {
     "id": 1,
-    "username": "staszek",
-    "hashedPassword": "$2b$10$6adjLX5vuXhoRlxjjMf2y.RCd6i5g4lZXV4kvAqc99gOJ9v2/5AGO",
-    "salt": "$2b$10$6adjLX5vuXhoRlxjjMf2y."
+    "username": "Jeremy",
+    "hashedPassword": "$2b$10$6yx4pfRGoYNnDN9HYu730ulG03c7onhOuPseVowovEH9RkpnLfT.y",
+    "salt": "$2b$10$6yx4pfRGoYNnDN9HYu730u"
   },
   {
     "id": 2,
@@ -13,14 +13,20 @@
   },
   {
     "id": 3,
-    "username": "Jeremy",
-    "hashedPassword": "$2b$10$6yx4pfRGoYNnDN9HYu730ulG03c7onhOuPseVowovEH9RkpnLfT.y",
-    "salt": "$2b$10$6yx4pfRGoYNnDN9HYu730u"
-  },
-  {
-    "id": 4,
     "username": "Michalbar",
     "hashedPassword": "$2b$10$KNmFK.y0lOzHmSl3HDZ63uhW2ErFN16QICNiPM4ZsLPf7YdEFXdbW",
     "salt": "$2b$10$KNmFK.y0lOzHmSl3HDZ63u"
+  },
+  {
+    "id": 4,
+    "username": "staszek",
+    "hashedPassword": "$2b$10$6adjLX5vuXhoRlxjjMf2y.RCd6i5g4lZXV4kvAqc99gOJ9v2/5AGO",
+    "salt": "$2b$10$6adjLX5vuXhoRlxjjMf2y."
+  },
+  {
+    "id": 5,
+    "username": "123456",
+    "hashedPassword": "$2b$10$FqWxqGZpagt.mgPg3x0vgeBiEK.htMOy3.bv2D3QLZ/QX2fBEERZy",
+    "salt": "$2b$10$FqWxqGZpagt.mgPg3x0vge"
   }
 ]

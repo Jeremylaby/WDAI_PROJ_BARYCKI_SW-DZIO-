@@ -3,8 +3,8 @@
     {
       "id": 1,
       "title": "Gym Bag",
-      "description": "Bag Bag Bag Bag Bag Bag Bag Bag Bag Bag Bag Bag Bag Bag Bag",
-      "price": "290",
+      "description": "Bag Bag Bag Bag Bag Bag Bag Bag Bag Bag Bag Bag Bag           Bag Bag",
+      "price": "291",
       "discountPercentage": 10,
       "rating": 5,
       "stock": 18,
@@ -61,7 +61,7 @@
       "images": "/images/trenbolone.jpg"
     },
     {
-      "id" : 6,
+      "id": 6,
       "title": "bidon",
       "description": "bidonbidonbidonbidonbidonbidonbidonbidonbidonbidon",
       "price": 60.59,
@@ -73,7 +73,7 @@
       "images": "/images/bidon.jpg"
     },
     {
-      "id" : 7,
+      "id": 7,
       "title": "hantle",
       "description": "hantlehantlehantlehantlehantlehantlehantlehantlehantlehantle",
       "price": 150,
@@ -154,34 +154,31 @@
       "stock": 15,
       "brand": "SportsMan",
       "category": "clothes",
-      "images":
-      "/images/sportShoes.png"
+      "images": "/images/sportShoes.png"
     },
     {
-      "id" : 14,
+      "id": 17,
       "title": "Gym Bag",
       "description": "BagBagBagBagBagBagBagBagBagBagBagBagBagBagBag",
-      "price": 299.00,
+      "price": 299,
       "discountPercentage": 10,
-      "rating": 5.0,
+      "rating": 5,
       "stock": 18,
       "brand": "SportsMan",
       "category": "Accessories",
-      "images":
-      "/images/GymBag.png"
+      "images": "/images/GymBag.png"
     },
     {
-      "id" : 15,
+      "id": 18,
       "title": "TankTop",
       "description": "TankTopTankTopTankTopTankTopTankTopTankTopTankTop",
-      "price": 199.00,
+      "price": 199,
       "discountPercentage": 10,
-      "rating": 5.0,
+      "rating": 5,
       "stock": 18,
       "brand": "SportsMan",
       "category": "Accessories",
-      "images":
-      "/images/tanktop.jpg"
+      "images": "/images/tanktop.jpg"
     }
   ]
 }
