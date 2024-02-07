@@ -108,6 +108,7 @@ function removeFromDatabase(data, id) {
 app.post("/persons/users/grantpermission/:id", async (req,res)=>{
     const userId=parseInt(req.params.id)
     removeFromDatabase(users,userId)
+    res.status(201).json({message: 'Permission granted successfully'});
 })
 app.post('/register', async (req, res) => {
     try {

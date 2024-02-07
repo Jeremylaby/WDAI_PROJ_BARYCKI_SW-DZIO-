@@ -5,7 +5,8 @@ import UserCard from "./UserCard";
 function Users(){
     const [users,setUsers]=useState([])
     const [admins,setAdmins]=useState([]);
-    useEffect(() => {
+
+    function getUsers() {
         fetch('http://localhost:8080/persons/users/get', {
             method: 'GET',
             headers: {
@@ -25,9 +26,27 @@ function Users(){
             .catch((error) => {
                 console.error('Błąd podczas pobierania danych:', error);
             });
+    }
+
+    useEffect(() => {
+        getUsers();
     }, []);
     function handleAddAdmin(user){
-
+        fetch(`'http://localhost:8080/persons/users/grantpermission${user.id}`,{
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).then((response) => {
+            if (!response.ok) {
+                throw new Error('Nie udało się dodac permisji');
+            }
+            return response.json();
+        }).then((data)=>{
+            console.log(data.message)
+        }).catch((error) => {
+            console.error('Błąd podczas w czasie dodawania permisji: ', error);
+        });
     }
 return<>
     <div className="products-list">
