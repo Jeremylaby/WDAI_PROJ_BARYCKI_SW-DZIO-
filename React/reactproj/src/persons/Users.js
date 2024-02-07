@@ -23,7 +23,7 @@ function Users({token}) {
                 console.log(data);
             })
             .catch((error) => {
-                console.error('Błąd podczas pobierania danych:', error);
+                console.error('Błąd podczas pobierania danych:', error.message);
             });
     }
 
@@ -47,7 +47,7 @@ function Users({token}) {
             console.log(data.message)
             getUsers();
         }).catch((error) => {
-            console.error('Błąd podczas w czasie dodawania permisji: ', error);
+            console.error('Błąd podczas w czasie dodawania permisji: ', error.message);
         });
     }
 

@@ -119,7 +119,6 @@ app.post("/persons/users/grantpermission/:id", async (req,res)=>{
     try {
         const decoded = jwt.verify(token, secretKey);
         if(jwtDecode(token).role==="admin") {
-            console.log(decoded);
             const userId = parseInt(req.params.id)
             removeFromDatabase(users, admins, userId)
             res.status(201).json({message: 'Permission granted successfully'});
