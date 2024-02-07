@@ -95,13 +95,10 @@ function removeFromDatabase(removeData,addData, id) {
     const user=removeData[id-1]
     user.id=addData.length+1
     if(lenght>1){
-        removeData[lenght-1].id=id-1
+        removeData[lenght-1].id=id
         removeData[id-1]=removeData[lenght-1]
         removeData.splice(lenght-1,1)
         addData.push(user)
-        removeData.map((user)=>{ if(user.id>id-1){
-            user.id=user.id-1;
-        }})
     }else{
         addData.push(user)
         removeData.splice(lenght-1,1)
