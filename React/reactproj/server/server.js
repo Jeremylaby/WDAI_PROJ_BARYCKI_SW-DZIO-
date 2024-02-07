@@ -78,11 +78,36 @@ app.get('/getproducts', async (req, res) => {
 app.get("/persons/users/get",async (req,res)=>{
     try {
         getUsers();
-        res.json(users)
+        const dataToSend=users.map((user)=>{
+            return {
+                id: user.id,
+                username: user.username
+            };
+        })
+        res.json(dataToSend)
     }catch (error){
         console.error('Błąd odczytu pliku lub parsowania JSON:', error);
         res.status(500).json({error: 'Internal server error'});
     }
+})
+function removeFromDatabase(data, id) {
+    const lenght=data.size()
+    const user=data[id-1]
+    if(lenght>1){
+        data[lenght-1].id=id-1
+        data[id-1]=data[lenght-1]
+        data.splice(lenght-1,1)
+        admins.push(user)
+    }else{
+        admins.push(user)
+        data.splice(lenght-1,1)
+    }
+    fs.writeFileSync(usersPath, JSON.stringify(users, null, 2));
+    fs.writeFileSync(adminsPath, JSON.stringify(admins, null, 2));
+}
+app.post("/persons/users/grantpermission/:id", async (req,res)=>{
+    const userId=parseInt(req.params.id)
+    removeFromDatabase(users,userId)
 })
 app.post('/register', async (req, res) => {
     try {

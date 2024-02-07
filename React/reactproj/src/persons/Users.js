@@ -26,8 +26,11 @@ function Users(){
                 console.error('Błąd podczas pobierania danych:', error);
             });
     }, []);
+    function handleAddAdmin(user){
+
+    }
 return<>
     <div className="products-list">
-        {users.map((user) => (<UserCard key={user.id} user={user}/>))}</div>
+        {users.map((user) => (<UserCard key={user.id} user={user} addAdmin={handleAddAdmin}/>))}</div>
 </>
 }export default Users;
